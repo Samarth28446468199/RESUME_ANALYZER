@@ -1,0 +1,12 @@
+{
+  "name": "ai-skill-gap-detector",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "frontend-install": "npm install --prefix frontend",
+    "frontend-build": "npm run build --prefix frontend",
+    "backend-install": "npm install --prefix backend",
+    "install-all": "npm run frontend-install && npm run backend-install",
+    "build": "npm run frontend-build"
+  }
+}
