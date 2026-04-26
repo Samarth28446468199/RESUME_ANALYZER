@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Shield, Plus, Trash2, Edit2, Check, X, Briefcase, BookOpen } from 'lucide-react';
+import { Shield, Plus, Trash2, Edit2, X, Briefcase, BookOpen } from 'lucide-react';
 import { jobsAPI, coursesAPI, adminAPI } from '../api';
 import { PageHeader, Spinner, Badge, StatCard } from '../components/ui/UI';
 

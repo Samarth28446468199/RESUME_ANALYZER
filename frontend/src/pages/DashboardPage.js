@@ -7,9 +7,9 @@ import {
 import { Doughnut } from 'react-chartjs-2';
 import { resumeAPI, skillGapAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
-import { PageHeader, Spinner, Badge, EmptyState } from '../components/ui/UI';
+import { Spinner, Badge, EmptyState } from '../components/ui/UI';
 import {
-  Upload, Target, BookOpen, Briefcase,
+  Upload, Target, Briefcase,
   CheckCircle, XCircle, Award, ArrowRight, Zap
 } from 'lucide-react';
 

@@ -22,6 +22,13 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', jwtToken);
     };
 
+    const logout = useCallback(() => {
+        setUser(null);
+        setToken(null);
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+    }, []);
+
     useEffect(() => {
         if (token) {
             authAPI.getMe()
@@ -56,7 +63,7 @@ export const AuthProvider = ({ children }) => {
         });
 
         return () => subscription.unsubscribe();
-    }, [token]);
+    }, [token, logout]);
 
     const register = useCallback(async (name, email, password) => {
         setLoading(true);
@@ -82,13 +89,6 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }, []);
-
-    const logout = useCallback(() => {
-        setUser(null);
-        setToken(null);
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
     }, []);
 
     const isAuthenticated = !!token;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Zap, ArrowRight, Brain, Target, TrendingUp, BookOpen, Shield, Code, Briefcase, Award } from 'lucide-react';
+import { Zap, ArrowRight, Brain, Target, TrendingUp, BookOpen, Shield } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 const FEATURES = [

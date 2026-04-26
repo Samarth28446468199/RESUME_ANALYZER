@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { toast } from 'react-toastify';
-import { Upload, FileText, CheckCircle, Download, Loader } from 'lucide-react';
+import { Upload, FileText, CheckCircle, Download } from 'lucide-react';
 import { resumeAPI } from '../api';
 import { PageHeader, ProgressBar, Badge, Spinner } from '../components/ui/UI';
 import jsPDF from 'jspdf';

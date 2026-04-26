@@ -18,11 +18,11 @@ export default function CoursesPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [playingVideoId, setPlayingVideoId] = useState(null);
     
-    // Check if we came from skill gap analysis with specific skills in query
-    const searchParams = new URLSearchParams(location.search);
-    const missingSkills = searchParams.get('skills')?.split(',') || [];
+    const missingSkills = React.useMemo(() => {
+        const searchParams = new URLSearchParams(location.search);
+        return searchParams.get('skills')?.split(',') || [];
+    }, [location.search]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const fetchCourses = async () => {
             setLoading(true);
@@ -36,7 +36,7 @@ export default function CoursesPage() {
             }
         };
         fetchCourses();
-    }, [location.search]); // missingSkills is derived from location.search
+    }, [missingSkills]); 
 
     const filteredCourses = courses.filter(course => 
         course.courseName.toLowerCase().includes(searchTerm.toLowerCase()) ||

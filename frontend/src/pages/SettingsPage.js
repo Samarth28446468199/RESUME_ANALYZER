@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import { Lock, User, Save } from 'lucide-react';
+import { Lock, Save } from 'lucide-react';
 import { authAPI } from '../api';
 import { useAuth } from '../context/AuthContext';
 import { PageHeader, Spinner } from '../components/ui/UI';

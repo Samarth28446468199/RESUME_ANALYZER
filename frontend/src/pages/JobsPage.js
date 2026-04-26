@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { Briefcase, MapPin, DollarSign, ExternalLink, Target, Search, Filter } from 'lucide-react';
+import { Briefcase, MapPin, DollarSign, ExternalLink, Target, Search } from 'lucide-react';
 import { jobsAPI } from '../api';
 import { PageHeader, Spinner, Badge, ProgressBar, EmptyState } from '../components/ui/UI';
 

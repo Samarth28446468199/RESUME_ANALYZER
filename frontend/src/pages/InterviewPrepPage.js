@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Video, Mic, CheckCircle, Play, Pause, AlertCircle, Camera, BrainCircuit, Activity } from 'lucide-react';
+import { CheckCircle, Play, Pause, AlertCircle, Camera, BrainCircuit, Activity } from 'lucide-react';
 import { PageHeader, Badge } from '../components/ui/UI';
 import { aiAPI } from '../api';
 
