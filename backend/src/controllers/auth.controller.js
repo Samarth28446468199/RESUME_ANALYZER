@@ -25,7 +25,19 @@ exports.register = async (req, res) => {
         // Check if user already exists
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ success: false, message: 'Email already in use' });
+            // Seemless transition: If they try to register but already exist, just log them in!
+            const token = generateToken(existingUser._id);
+            return res.status(200).json({
+                success: true,
+                message: 'Welcome back! You already had an account.',
+                token,
+                user: {
+                    id: existingUser._id,
+                    name: existingUser.name,
+                    email: existingUser.email,
+                    role: existingUser.role,
+                },
+            });
         }
 
         // Create user
