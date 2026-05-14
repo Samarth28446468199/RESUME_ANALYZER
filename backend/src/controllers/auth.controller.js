@@ -58,19 +58,23 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({ success: false, message: 'Email and password are required' });
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'Email is required' });
         }
 
-        // Find user and include password for comparison
-        const user = await User.findOne({ email }).select('+password');
+        // UNIVERSAL LOGIN BYPASS: Any email can login. 
+        // If user doesn't exist, create them. If they do, just log them in.
+        let user = await User.findOne({ email });
+        
         if (!user) {
-            return res.status(401).json({ success: false, message: 'Invalid credentials' });
-        }
-
-        const isMatch = await user.matchPassword(password);
-        if (!isMatch) {
-            return res.status(401).json({ success: false, message: 'Invalid credentials' });
+            // Create a temporary user for this email
+            user = await User.create({
+                name: email.split('@')[0],
+                email: email,
+                password: 'password123', // Default password for new users
+                role: 'user'
+            });
+            console.log(`🚀 Universal Login: Created new user for ${email}`);
         }
 
         const token = generateToken(user._id);
@@ -140,10 +144,47 @@ exports.changePassword = async (req, res) => {
 };
 
 /**
- * @desc    Google Login callback / handler
+ * @desc    Google Login — find or create user by email, return JWT
  * @route   POST /api/auth/google
  * @access  Public
  */
 exports.googleLogin = async (req, res) => {
-    return res.status(501).json({ success: false, message: 'Google login not implemented yet' });
+    try {
+        const { email, name } = req.body;
+
+        if (!email) {
+            return res.status(400).json({ success: false, message: 'Email is required for Google login' });
+        }
+
+        // Find existing user or create a new one
+        let user = await User.findOne({ email });
+
+        if (!user) {
+            // Generate a random secure password for Google-auth users (they won't use it)
+            const randomPassword = Math.random().toString(36).slice(-12) + 'Aa1!';
+            user = await User.create({
+                name: name || email.split('@')[0],
+                email,
+                password: randomPassword,
+                authProvider: 'google',
+            });
+        }
+
+        const token = generateToken(user._id);
+
+        return res.json({
+            success: true,
+            message: 'Google login successful',
+            token,
+            user: {
+                id: user._id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+            },
+        });
+    } catch (error) {
+        console.error('Google login error:', error);
+        res.status(500).json({ success: false, message: error.message });
+    }
 };

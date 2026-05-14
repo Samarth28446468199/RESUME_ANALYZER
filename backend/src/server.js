@@ -34,8 +34,21 @@ app.use((err, req, res, next) => {
 const autoSeed = async () => {
   const Job = require('./models/Job');
   const Course = require('./models/Course');
+  const User = require('./models/User');
   const jobCount = await Job.countDocuments();
   if (jobCount > 0) return; // already seeded
+
+  // Seed default demo user
+  const demoUser = await User.findOne({ email: 'demo@careerai.com' });
+  if (!demoUser) {
+    await User.create({
+      name: 'Demo User',
+      email: 'demo@careerai.com',
+      password: 'password123',
+      role: 'user'
+    });
+    console.log('🌱 Seeded Demo User (demo@careerai.com / password123)');
+  }
 
   const JOBS = [
     { title: 'Full Stack Developer', company: 'TechNova Inc.', location: 'Remote', type: 'Full-time', salary: '₹8L - ₹18L/yr', requiredSkills: ['React', 'Node.js', 'MongoDB', 'Express', 'JavaScript', 'HTML', 'CSS', 'Git', 'REST API'], experienceRequired: 2, description: 'Build scalable web apps using modern JS stack.', isActive: true },

@@ -123,7 +123,10 @@ export default function JobsPage() {
                                             <span className="text-[10px] px-2 py-0.5 text-slate-400">+{job.requiredSkills.length - 3} more</span>
                                         )}
                                     </div>
-                                    <button className="flex items-center gap-1.5 text-sm font-bold text-indigo-500 hover:text-indigo-400">
+                                    <button 
+                                        onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(job.company + ' ' + job.title + ' careers')}`, '_blank')}
+                                        className="flex items-center gap-1.5 text-sm font-bold text-indigo-500 hover:text-indigo-400"
+                                    >
                                         Apply <ExternalLink className="w-3.5 h-3.5" />
                                     </button>
                                 </div>

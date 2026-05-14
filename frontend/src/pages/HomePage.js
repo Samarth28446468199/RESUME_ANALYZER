@@ -26,12 +26,20 @@ export default function HomePage() {
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
 
             {/* Hero Section */}
-            <section className="relative pt-32 pb-24 px-4 overflow-hidden">
-                {/* Hero Orbs */}
+            <section className="relative pt-32 pb-32 px-4 overflow-hidden perspective-container">
+                {/* Hero Orbs & Floating Elements */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-indigo-600/20 rounded-full blur-[120px] -translate-y-1/2 pointer-events-none opacity-60 dark:opacity-40 animate-pulse-slow"></div>
                 <div className="absolute bottom-1/4 right-0 w-[500px] h-[400px] bg-emerald-600/20 rounded-full blur-[100px] pointer-events-none opacity-50 dark:opacity-30"></div>
+                
+                {/* 3D Floating Decorative Cards */}
+                <div className="absolute top-1/4 left-[10%] w-32 h-32 bg-gradient-to-br from-indigo-500/20 to-purple-500/20 rounded-2xl border border-white/10 backdrop-blur-xl hidden lg:flex items-center justify-center float-animation transform -rotate-12">
+                    <Brain className="w-12 h-12 text-indigo-400 opacity-80" />
+                </div>
+                <div className="absolute bottom-1/3 right-[10%] w-40 h-40 bg-gradient-to-br from-emerald-500/20 to-teal-500/20 rounded-[2rem] border border-white/10 backdrop-blur-xl hidden lg:flex items-center justify-center float-animation-delayed transform rotate-12">
+                    <TrendingUp className="w-16 h-16 text-emerald-400 opacity-80" />
+                </div>
 
-                <div className="relative z-10 max-w-5xl mx-auto text-center">
+                <div className="relative z-10 max-w-5xl mx-auto text-center hero-3d-scene">
                     <div className="inline-flex items-center gap-2 bg-slate-900/5 border border-slate-200/50 dark:bg-white/5 dark:border-white/10 rounded-full px-5 py-2 text-sm font-semibold text-slate-700 dark:text-slate-300 mb-8 backdrop-blur-md shadow-sm animate-fade-in group hover:bg-slate-900/10 dark:hover:bg-white/10 transition">
                         <Zap className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
                         Next-Gen AI Career Ecosystem
@@ -45,7 +53,7 @@ export default function HomePage() {
                     </h1>
 
                     <p className="text-xl sm:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto mb-12 leading-relaxed font-medium animate-slide-up" style={{ animationDelay: '200ms' }}>
-                        Drop your resume into our neural-engine. Instantly unpack skill gaps, calculate probabilities, and get an automated roadmap of top-tier courses to secure your dream role.
+                        Let CareerAI analyze your professional profile. Instantly identify skill gaps, calculate job-match probabilities, and receive a customized roadmap of industry-leading courses to accelerate your career.
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-5 animate-slide-up" style={{ animationDelay: '300ms' }}>
@@ -92,9 +100,9 @@ export default function HomePage() {
                         </p>
                     </div>
 
-                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 perspective-container">
                         {FEATURES.map(({ icon: Icon, title, desc, color, iconColor }, i) => (
-                            <div key={title} className="group p-8 rounded-[2rem] bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-white/5 hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:shadow-indigo-500/10 animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
+                            <div key={title} className="group p-8 rounded-[2rem] bg-white dark:bg-slate-900/40 border border-slate-100 dark:border-white/5 tilt-card animate-slide-up" style={{ animationDelay: `${i * 100}ms` }}>
                                 <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mb-6 shadow-inner group-hover:scale-110 transition-transform duration-300`}>
                                     <Icon className={`w-8 h-8 ${iconColor}`} />
                                 </div>
@@ -108,13 +116,17 @@ export default function HomePage() {
 
             {/* Classic CTA section */}
             {!isAuthenticated && (
-                <section className="py-24 px-4 relative z-10">
-                    <div className="max-w-5xl mx-auto relative rounded-[3rem] overflow-hidden">
+                <section className="py-24 px-4 relative z-10 perspective-container">
+                    <div className="max-w-5xl mx-auto relative rounded-[3rem] overflow-hidden tilt-card" style={{ transformStyle: 'preserve-3d' }}>
                         <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900"></div>
                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
                         
-                        <div className="relative p-12 lg:p-20 text-center flex flex-col items-center">
-                            <Shield className="w-16 h-16 text-emerald-400 mb-6 drop-shadow-2xl" />
+                        {/* Interactive floating elements inside CTA */}
+                        <div className="absolute top-10 left-10 w-20 h-20 bg-indigo-500/20 rounded-full blur-xl animate-pulse-slow"></div>
+                        <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-500/20 rounded-full blur-2xl float-animation"></div>
+
+                        <div className="relative p-12 lg:p-20 text-center flex flex-col items-center" style={{ transform: 'translateZ(40px)' }}>
+                            <Shield className="w-16 h-16 text-emerald-400 mb-6 drop-shadow-2xl float-animation-delayed" />
                             <h2 className="text-4xl lg:text-6xl font-black text-white tracking-tight mb-6">
                                 Stop Guessing. Start Landing.
                             </h2>
@@ -130,7 +142,7 @@ export default function HomePage() {
             )}
 
             <footer className="py-10 text-center font-medium text-sm text-slate-400 dark:text-slate-500 relative z-10 bg-white/50 dark:bg-transparent backdrop-blur-lg">
-                © {new Date().getFullYear()} SkillGap AI. Engineering careers with ❤️
+                © {new Date().getFullYear()} CareerAI. Engineering careers with ❤️
             </footer>
         </div>
     );

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Base API instance
-const baseURL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const baseURL = process.env.REACT_APP_API_URL || '/api';
 
 const api = axios.create({
     baseURL,
@@ -16,10 +16,12 @@ api.interceptors.request.use((config) => {
 });
 
 // Handle 401 globally — clear token and redirect
+// Skip redirect for /auth/me so AuthContext can handle stale tokens gracefully
 api.interceptors.response.use(
     (response) => response,
     (error) => {
-        if (error.response?.status === 401) {
+        const url = error.config?.url || '';
+        if (error.response?.status === 401 && !url.includes('/auth/me')) {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
             window.location.href = '/login';
@@ -77,10 +79,11 @@ export const adminAPI = {
     getUsers: () => api.get('/admin/users'),
 };
 
-// ─── AI Tools ─────────────────────────────────────────────────────────────
+// ─── AI Tools (Claude-powered) ────────────────────────────────────────────────
 export const aiAPI = {
     generateCoverLetter: (data) => api.post('/ai/cover-letter', data),
     analyzeInterviewAnswer: (data) => api.post('/ai/interview-prep', data),
+    getResumeTips: () => api.post('/ai/resume-tips'),
 };
 
 export default api;

@@ -46,7 +46,7 @@ export default function Navbar() {
                         <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-indigo-500 to-emerald-500 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                             <Zap className="w-5 h-5 text-white" />
                         </div>
-                        <span className="font-bold text-lg gradient-text hidden sm:block">SkillGap AI</span>
+                        <span className="font-bold text-lg gradient-text hidden sm:block">CareerAI</span>
                     </Link>
 
                     {/* Desktop nav */}

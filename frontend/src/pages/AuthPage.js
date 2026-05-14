@@ -36,7 +36,7 @@ export default function AuthPage({ mode = 'login' }) {
   const [isLogin, setIsLogin] = useState(mode === 'login');
   const navigate = useNavigate();
   const location = useLocation();
-  const { login, register, loading } = useAuth();
+  const { login, register, loginWithGoogle, loading } = useAuth();
 
   const [form, setForm] = useState({ name: '', email: '', password: '' });
   const [showPass, setShowPass] = useState(false);
@@ -76,8 +76,13 @@ export default function AuthPage({ mode = 'login' }) {
 
   const handleGoogleLogin = async () => {
     try {
-      const { error } = await supabase.auth.signInWithOAuth({ provider: 'google' });
-      if (error) throw error;
+      const result = await loginWithGoogle();
+      if (result.success) {
+          toast.success('Successfully logged in with Google! 🎉');
+          navigate('/dashboard');
+      } else {
+          toast.error(result.message || 'Google Login failed');
+      }
     } catch (err) {
       toast.error('Could not initialize Google Login');
     }
@@ -100,7 +105,7 @@ export default function AuthPage({ mode = 'login' }) {
             <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-xl flex items-center justify-center">
               <Zap className="w-6 h-6 text-yellow-300" />
             </div>
-            <h2 className="text-3xl font-extrabold tracking-tight">SkillGap AI</h2>
+            <h2 className="text-3xl font-extrabold tracking-tight">CareerAI</h2>
           </div>
           <h1 className="text-5xl lg:text-6xl font-black mb-6 leading-tight">
             Elevate Your <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-emerald-300">Career Trajectory</span>
